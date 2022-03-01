@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.sudoku {
+  display: flex;
+  flex-wrap: wrap;
+  width: 350px;
+}
+
+.cell {
+  height: 50px;
+  width: 50px;
+  background-color: red;
+  border: 1px solid black;
+}
+
+.active {
+  background-color: yellow;
+}
+
+.answered {
+  background-color: green;
+}
