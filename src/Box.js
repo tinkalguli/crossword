@@ -1,6 +1,12 @@
 import { WORDS } from "./constant"
 
 const Box = ({ index, userAnswers, setUserAnswers }) => {
+  const indices = WORDS.reduce((acc, cv) => {
+    let currentValPositions = cv.positions;
+    acc = [...acc, ...currentValPositions];
+    return acc;
+  }, []);
+
   const handleChange = (e, word, index) => {
     let wordsInAnswers = userAnswers.filter((ans) =>
       ans.positions.includes(index)
@@ -33,14 +39,8 @@ const Box = ({ index, userAnswers, setUserAnswers }) => {
       }
     }
   };
-
-  const indexes = WORDS.reduce((acc, cv) => {
-    let currentValPositions = cv.positions;
-    acc = [...acc, ...currentValPositions];
-    return acc;
-  }, []);
   
-  const isActive = (i) => indexes.includes(i);
+  const isActive = (i) => indices.includes(i);
 
   const findWord = (index) => {
     let wordAtIndex = WORDS.find((word) => word.positions.includes(index));
