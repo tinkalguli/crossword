@@ -1,10 +1,30 @@
-body {
+:root {
+  --cell-row: 6;
+  --cell-column: 6;
+  --cell-width: 100px;
+  --cell-height: 100px;
+  --bg-color: rgb(233, 233, 233);
+  --border-color: rgb(163, 163, 163);
+  --green-color: rgb(155, 216, 165);
+  --primary-color: rgb(150, 106, 255);
+  --secondary-color: rgb(182, 151, 255);
+  --secondary-color: rgb(182, 151, 255);
+  --tertiary-color: rgb(219, 219, 219);
+}
+
+*,
+*:after,
+*:before {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-color);
 }
 
 code {
@@ -12,23 +32,47 @@ code {
     monospace;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
 .sudoku {
   display: flex;
   flex-wrap: wrap;
-  width: 350px;
+  width: calc(var(--cell-width) * var(--cell-column));
+  height: calc(var(--cell-height) * var(--cell-row));
 }
 
 .cell {
-  height: 50px;
-  width: 50px;
-  background-color: red;
-  border: 1px solid black;
+  height: var(--cell-width);
+  width: var(--cell-height);
+  font-size: calc(var(--cell-width) / 1.75);
+  background: var(--bg-color);
+  cursor: pointer;
+  border-radius: calc(var(--cell-width) / 10);
 }
 
 .active {
-  background-color: yellow;
+  border: 1px solid var(--border-color);
+  background-color: var(--tertiary-color);
 }
 
 .answered {
-  background-color: green;
+  background-color: var(--green-color);
+}
+
+input {
+  caret-color: transparent;
+  text-align: center;
+  vertical-align: middle;
+  border: 0;
+  outline: 0;
+}
+
+input:focus {
+  background-color: var(--primary-color);
 }

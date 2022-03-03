@@ -1,6 +1,6 @@
 import { WORDS } from "./constant"
 
-const Box = ({ index, userAnswers, setUserAnswers }) => {
+const Cell = ({ index, userAnswers, setUserAnswers }) => {
   const indices = WORDS.reduce((acc, cv) => {
     let currentValPositions = cv.positions;
     acc = [...acc, ...currentValPositions];
@@ -50,13 +50,13 @@ const Box = ({ index, userAnswers, setUserAnswers }) => {
   return (
     <input
       maxLength={1}
-      readOnly={!isActive(index) || isCellAnswered(index)}
-      className={`cell ${isActive(index) ? "active" : null} ${
-        isCellAnswered(index) ? "answered" : null
+      className={`cell ${isActive(index) ? "active" : ""} ${
+        isCellAnswered(index) ? "answered" : ""
       }`}
+      disabled={!isActive(index) || isCellAnswered(index)}
       onChange={(e) => handleChange(e, findWord(index), index)}
     />
   );
 };
 
-export default Box;
+export default Cell;

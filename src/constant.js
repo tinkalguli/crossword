@@ -10,4 +10,4 @@ export const DEFAULT_USER_ANSWERS = [
   { word: "leg", positions: [26, 27, 28], isAnswered: false }
 ];
 
-export const NUMBER_OF_BOX = 36;
+export const NUMBER_OF_CELL = 36;
