@@ -27,7 +27,6 @@ const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWor
       if(words.length > 1) {
         const similarWord = words.find(v => v.word == selectedWord.word);
         const unSelctedWord = words.find(v => v.word != similarWord?.word);
-        console.log(unSelctedWord);
         return similarWord ? unSelctedWord : words[0];
       }
 

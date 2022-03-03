@@ -24,7 +24,7 @@ const App = () => {
             ))
           }
         </div>
-        <p className="hint">{selectedWord.hint}</p>
+        <p className="hint">{selectedWord?.hint}</p>
       </div>
     </div>
   );
