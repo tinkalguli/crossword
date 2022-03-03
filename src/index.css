@@ -1,13 +1,87 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --cell-row: 6;
+  --cell-column: 6;
+  --cell-width: 70px;
+  --cell-height: 70px;
+  --bg-color: rgb(233, 233, 233);
+  --border-color: rgb(163, 163, 163);
+  --green-color: rgb(155, 216, 165);
+  --primary-color: rgb(144, 96, 255);
+  --secondary-color: rgb(209, 189, 255);
+  --tertiary-color: rgb(219, 219, 219);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* My reset */
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg-color);
+}
+
+input {
+  caret-color: transparent;
+  text-align: center;
+  vertical-align: middle;
+  border: 0;
+  outline: 0;
+}
+
+input:focus {
+  background-color: var(--primary-color);
+}
+
+/* Modular Classes */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.game {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1.5rem;
+  width: calc(var(--cell-width) * var(--cell-column));
+  height: calc(var(--cell-height) * var(--cell-row));
+}
+
+.hint {
+  font-size: calc(var(--cell-width) / 3);
+  text-align: center;
+  height: calc(var(--cell-height) * 1.5);
+  width: calc(var(--cell-width) * var(--cell-column));
+}
+
+.cell {
+  height: var(--cell-width);
+  width: var(--cell-height);
+  font-size: calc(var(--cell-width) / 1.75);
+  background: var(--bg-color);
+  cursor: pointer;
+  border-radius: calc(var(--cell-width) / 10);
+}
+
+.active {
+  border: 1px solid var(--border-color);
+  background-color: var(--tertiary-color);
+}
+
+.selected-word {
+  background-color: var(--secondary-color);
+}
+
+.answered {
+  background-color: var(--green-color);
 }
