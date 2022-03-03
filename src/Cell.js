@@ -25,8 +25,8 @@ const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWor
     const words = matchingWords(index);
     setSelectedWord(selectedWord => {
       if(words.length > 1) {
-        const similarWord = words.find(v => v.word == selectedWord.word);
-        const unSelctedWord = words.find(v => v.word != similarWord?.word);
+        const similarWord = words.find(v => v.word === selectedWord.word);
+        const unSelctedWord = words.find(v => v.word !== similarWord?.word);
         return similarWord ? unSelctedWord : words[0];
       }
 
@@ -35,7 +35,7 @@ const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWor
   }
 
   const checkIfGuessed = (word) => {
-    let userAnswer = userAnswers.find((ans) => ans.word == word);
+    let userAnswer = userAnswers.find((ans) => ans.word === word);
     if (userAnswer.answer.join("").toLowerCase() === userAnswer.word) {
       userAnswer.isAnswered = true;
     }
