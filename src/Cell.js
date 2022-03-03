@@ -1,28 +1,43 @@
 import { WORDS } from "./constant"
 
-const Cell = ({ index, userAnswers, setUserAnswers }) => {
+const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWord }) => {
   const indices = WORDS.reduce((acc, cv) => {
     let currentValPositions = cv.positions;
     acc = [...acc, ...currentValPositions];
     return acc;
   }, []);
 
-  const handleChange = (e, word, index) => {
-    let wordsInAnswers = userAnswers.filter((ans) =>
-      ans.positions.includes(index)
-    );
-    for (let wordInAnswer of wordsInAnswers) {
+  const matchingWords = (index) => userAnswers.filter((ans) =>
+    ans.positions.includes(index)
+  );
+
+  const handleChange = (e, index) => {
+    for (let wordInAnswer of matchingWords(index)) {
       let idx = wordInAnswer.positions.indexOf(index);
-      wordInAnswer.positions[idx] = e.target.value;
+      wordInAnswer.answer[idx] = e.target.value;
+      checkIfGuessed(wordInAnswer.word);
     }
-    checkIfGuessed(word);
     const userAnswersClone = [...userAnswers];
     setUserAnswers(userAnswersClone);
   };
 
+  const onWordChange = (index) => {
+    const words = matchingWords(index);
+    setSelectedWord(selectedWord => {
+      if(words.length > 1) {
+        const similarWord = words.find(v => v.word == selectedWord.word);
+        const unSelctedWord = words.find(v => v.word != similarWord?.word);
+        console.log(unSelctedWord);
+        return similarWord ? unSelctedWord : words[0];
+      }
+
+      return words[0];
+    });
+  }
+
   const checkIfGuessed = (word) => {
     let userAnswer = userAnswers.find((ans) => ans.word == word);
-    if (userAnswer.positions.join("") === userAnswer.word) {
+    if (userAnswer.answer.join("") === userAnswer.word) {
       userAnswer.isAnswered = true;
     }
   };
@@ -42,19 +57,19 @@ const Cell = ({ index, userAnswers, setUserAnswers }) => {
   
   const isActive = (i) => indices.includes(i);
 
-  const findWord = (index) => {
-    let wordAtIndex = WORDS.find((word) => word.positions.includes(index));
-    return wordAtIndex?.word;
-  };
+  const isSelectedByWord = (i) => selectedWord?.positions?.includes(i);
 
   return (
     <input
       maxLength={1}
-      className={`cell ${isActive(index) ? "active" : ""} ${
-        isCellAnswered(index) ? "answered" : ""
+      className={`cell ${isActive(index) ? "active" : ""}
+      ${isCellAnswered(index) ? "answered" : ""} ${
+        isSelectedByWord(index) ? "selected-word" : ""
       }`}
       disabled={!isActive(index) || isCellAnswered(index)}
-      onChange={(e) => handleChange(e, findWord(index), index)}
+      onChange={(e) => handleChange(e, index)}
+      onClick={() => onWordChange(index)}
+      oninput="this.value = this.value.toUpperCase()"
     />
   );
 };
