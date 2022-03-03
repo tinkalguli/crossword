@@ -10,8 +10,8 @@ export const WORDS = [
   { word: "bell", positions: [14, 15, 16, 17], hint: "Church ringer" },
   { word: "book", positions: [14, 20, 26, 32], hint: "Something to read" },
   { word: "lock", positions: [17, 23, 29, 35], hint: "What a key opens" },
-  { word: "look", positions: [18, 19, 20, 21], hint: "To focus cision on someone or something" },
-  { word: "kick", positions: [32, 33, 34, 35], hint: "To focus cision on someone or something" },
+  { word: "look", positions: [18, 19, 20, 21], hint: "To focus vision on someone or something" },
+  { word: "kick", positions: [32, 33, 34, 35], hint: "To strike with the foot" },
 ];
 
 export const NUMBER_OF_CELL = 36;

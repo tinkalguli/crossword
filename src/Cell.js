@@ -36,7 +36,7 @@ const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWor
 
   const checkIfGuessed = (word) => {
     let userAnswer = userAnswers.find((ans) => ans.word == word);
-    if (userAnswer.answer.join("") === userAnswer.word) {
+    if (userAnswer.answer.join("").toLowerCase() === userAnswer.word) {
       userAnswer.isAnswered = true;
     }
   };
