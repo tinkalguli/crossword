@@ -5,6 +5,8 @@
   --cell-column: 6;
   --cell-width: 70px;
   --cell-height: 70px;
+  --cell-width-mobile: 40px;
+  --cell-height-mobile: 40px;
   --bg-color: rgb(233, 233, 233);
   --border-color: rgb(163, 163, 163);
   --green-color: rgb(155, 216, 165);
@@ -71,6 +73,7 @@ input:focus {
   background: var(--bg-color);
   cursor: pointer;
   border-radius: calc(var(--cell-width) / 10);
+  text-transform: uppercase;
 }
 
 .active {
@@ -84,4 +87,25 @@ input:focus {
 
 .answered {
   background-color: var(--green-color);
+}
+
+@media screen and (max-width: 480px) {
+  .cell {
+    height: var(--cell-width-mobile);
+    width: var(--cell-height-mobile);
+    font-size: calc(var(--cell-width-mobile) / 1.75);
+    border-radius: calc(var(--cell-width-mobile) / 10);
+  }
+
+  .game {
+    width: calc(var(--cell-width-mobile) * var(--cell-column));
+    height: calc(var(--cell-height-mobile) * var(--cell-row));
+  }
+
+  .hint {
+    text-align: center;
+    font-size: calc(var(--cell-width-mobile) / 2);
+    height: calc(var(--cell-height-mobile) * 1.5);
+    width: calc(var(--cell-width-mobile) * var(--cell-column));
+  }
 }
