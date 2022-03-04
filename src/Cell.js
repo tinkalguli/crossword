@@ -73,6 +73,7 @@ const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWor
       disabled={!isActive(index) || isCellAnswered(index)}
       onChange={(e) => handleChange(e.target.value, index)}
       onClick={() => onWordChange(index)}
+      onFocus={() => onWordChange(index)}
     />
   );
 };
