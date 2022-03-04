@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { WORDS } from "./constant"
 
 const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWord }) => {
+  const [value, setValue] = useState("");
+
   const indices = WORDS.reduce((acc, cv) => {
     let currentValPositions = cv.positions;
     acc = [...acc, ...currentValPositions];
@@ -11,10 +14,12 @@ const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWor
     ans.positions.includes(index)
   );
 
-  const handleChange = (e, index) => {
+  const handleChange = (value, index) => {
+    const inputValue = value.substr(value.length - 1);
+    setValue(inputValue);
     for (let wordInAnswer of matchingWords(index)) {
       let idx = wordInAnswer.positions.indexOf(index);
-      wordInAnswer.answer[idx] = e.target.value;
+      wordInAnswer.answer[idx] = inputValue;
       checkIfGuessed(wordInAnswer.word);
     }
     const userAnswersClone = [...userAnswers];
@@ -60,15 +65,14 @@ const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWor
 
   return (
     <input
-      maxLength={1}
+      value={value}
       className={`cell ${isActive(index) ? "active" : ""}
       ${isCellAnswered(index) ? "answered" : ""} ${
         isSelectedByWord(index) ? "selected-word" : ""
       }`}
       disabled={!isActive(index) || isCellAnswered(index)}
-      onChange={(e) => handleChange(e, index)}
+      onChange={(e) => handleChange(e.target.value, index)}
       onClick={() => onWordChange(index)}
-      oninput="this.value = this.value.toUpperCase()"
     />
   );
 };
