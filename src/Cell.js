@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { WORDS } from "./constant"
 
-const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWord }) => {
+const Cell = ({
+  index,
+  userAnswers,
+  setUserAnswers,
+  setSelectedWord,
+  selectedWord,
+  selectedIndex,
+  setSelectedIndex,
+}) => {
   const [value, setValue] = useState("");
 
   const indices = WORDS.reduce((acc, cv) => {
@@ -26,16 +34,16 @@ const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWor
     setUserAnswers(userAnswersClone);
   };
 
-  const onWordChange = (index) => {
-    const words = matchingWords(index);
-    setSelectedWord(selectedWord => {
-      if(words.length > 1) {
-        const similarWord = words.find(v => v.word === selectedWord.word);
-        const unSelctedWord = words.find(v => v.word !== similarWord?.word);
-        return similarWord ? unSelctedWord : words[0];
-      }
+  const onFocus = (index) => setSelectedWord(matchingWords(index)[0]);
 
-      return words[0];
+  const onClick = (index) => {
+    const words = matchingWords(index);
+    if(words.length <= 1) return null;
+
+    setSelectedWord(selectedWord => {
+      const similarWord = words.find(v => v.word === selectedWord.word);
+      const unSelctedWord = words.find(v => v.word !== similarWord?.word);
+      return similarWord ? unSelctedWord : words[0];
     });
   }
 
@@ -66,14 +74,20 @@ const Cell = ({ index, userAnswers, setUserAnswers, setSelectedWord, selectedWor
   return (
     <input
       value={value}
-      className={`cell ${isActive(index) ? "active" : ""}
-      ${isCellAnswered(index) ? "answered" : ""} ${
-        isSelectedByWord(index) ? "selected-word" : ""
+      className={`cell ${isActive(index) ? "active" : ""} ${
+        isCellAnswered(index) ? "answered" : "" } ${
+        isSelectedByWord(index) ? "selected-word" : ""} ${
+        index === selectedIndex ? "focus" : ""
       }`}
       disabled={!isActive(index) || isCellAnswered(index)}
       onChange={(e) => handleChange(e.target.value, index)}
-      onClick={() => onWordChange(index)}
-      onFocus={() => onWordChange(index)}
+      onClick={() => {
+        onClick(index);
+      }}
+      onFocus={() => {
+        setSelectedIndex(index)
+        onFocus(index)
+      }}
     />
   );
 };
