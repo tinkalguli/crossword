@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { WORDS } from "./constant"
 
 const Cell = ({
@@ -10,40 +10,62 @@ const Cell = ({
   selectedIndex,
   setSelectedIndex,
 }) => {
+  const currentPositionIndex = (index) => selectedWord.positions.indexOf(index);
   const [value, setValue] = useState("");
+  const inputRef = useRef(null);
+  
+  useEffect(() => {
+    selectedIndex === index && inputRef.current.focus();
+  }, [selectedIndex]);
 
+  useEffect(() => {
+    selectedIndex && setValue(selectedWord?.answer[currentPositionIndex(index)])
+  }, [userAnswers]);
+  
   const indices = WORDS.reduce((acc, cv) => {
     let currentValPositions = cv.positions;
     acc = [...acc, ...currentValPositions];
     return acc;
   }, []);
-
+  
   const matchingWords = (index) => userAnswers.filter((ans) =>
     ans.positions.includes(index)
   );
 
-  const handleChange = (value, index) => {
+  const handleChange = async (value, index) => {
     const inputValue = value.substr(value.length - 1);
-    setValue(inputValue);
     for (let wordInAnswer of matchingWords(index)) {
       let idx = wordInAnswer.positions.indexOf(index);
       wordInAnswer.answer[idx] = inputValue;
       checkIfGuessed(wordInAnswer.word);
     }
     const userAnswersClone = [...userAnswers];
+    setValue(inputValue);
+    value && goToNextCell(index);
     setUserAnswers(userAnswersClone);
   };
 
-  const onFocus = (index) => setSelectedWord(matchingWords(index)[0]);
+  const goToNextCell = (index) => {
+    const nextIndex = selectedWord.positions[currentPositionIndex(index) + 1];
+    nextIndex !== undefined && setSelectedIndex(nextIndex);
+  }
 
-  const onClick = (index) => {
+  const goToPrevCell = (e, index) => {
+    if (e.keyCode !== 8) return null;
+    if (e.target.value) return handleChange("", index);
+
+    const prevIndex = selectedWord.positions[currentPositionIndex(index) - 1];
+    prevIndex !== undefined && handleChange("", prevIndex).then(() => setSelectedIndex(prevIndex));
+  }
+
+  const onWordChange = (index, canAlter=true) => {
     const words = matchingWords(index);
-    if(words.length <= 1) return null;
+    if(words.length <= 1) return !canAlter && setSelectedWord(words[0]);
 
     setSelectedWord(selectedWord => {
       const similarWord = words.find(v => v.word === selectedWord.word);
       const unSelctedWord = words.find(v => v.word !== similarWord?.word);
-      return similarWord ? unSelctedWord : words[0];
+      return (similarWord && canAlter) ? unSelctedWord : (similarWord || words[0]);
     });
   }
 
@@ -74,6 +96,7 @@ const Cell = ({
   return (
     <input
       value={value}
+      ref={inputRef}
       className={`cell ${isActive(index) ? "active" : ""} ${
         isCellAnswered(index) ? "answered" : "" } ${
         isSelectedByWord(index) ? "selected-word" : ""} ${
@@ -81,13 +104,12 @@ const Cell = ({
       }`}
       disabled={!isActive(index) || isCellAnswered(index)}
       onChange={(e) => handleChange(e.target.value, index)}
-      onClick={() => {
-        onClick(index);
-      }}
+      onClick={() => onWordChange(index)}
       onFocus={() => {
         setSelectedIndex(index)
-        onFocus(index)
+        onWordChange(index, false)
       }}
+      onKeyDown={(e) => goToPrevCell(e, index)}
     />
   );
 };
