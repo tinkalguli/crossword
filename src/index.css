@@ -37,10 +37,10 @@ input {
   border: 0;
   outline: 0;
 }
-
+/* 
 input:focus {
   background-color: var(--primary-color);
-}
+} */
 
 /* Modular Classes */
 .container {
@@ -83,6 +83,10 @@ input:focus {
 
 .selected-word {
   background-color: var(--secondary-color);
+}
+
+.focus {
+  background-color: var(--primary-color);
 }
 
 .answered {
