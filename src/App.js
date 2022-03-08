@@ -8,6 +8,25 @@ const App = () => {
   const [selectedWord, setSelectedWord] = useState(WORDS[0]);
   const [selectedIndex, setSelectedIndex] = useState(WORDS[0]?.positions[0]);
 
+  const nonAnsweredWords = userAnswers.filter(v => !v.isAnswered);
+  const answeredIndices = userAnswers.filter(v => v.isAnswered).reduce(
+    (acc, cv) => [...acc, ...cv.positions], []
+  );
+  
+  const selectedWordNonAnsweredIndices = selectedWord.positions.filter(v => !answeredIndices.includes(v));
+
+  useEffect(() => {
+    if (selectedWord && nonAnsweredWords?.length === 0) alert("You have won the game");
+
+    if(selectedWord.isAnswered) setSelectedWord(nonAnsweredWords[0]);
+  }, [userAnswers]);
+
+  useEffect(() => {
+    if (answeredIndices.includes(selectedIndex) && !selectedWord.isAnswered) {
+      setSelectedIndex(selectedWordNonAnsweredIndices[0]);
+    } 
+  }, [selectedWord])
+
   return (
     <div className="container">
       <div>
@@ -23,6 +42,7 @@ const App = () => {
                 setUserAnswers={setUserAnswers}
                 setSelectedWord={setSelectedWord}
                 setSelectedIndex={setSelectedIndex}
+                selectedWordNonAnsweredIndices={selectedWordNonAnsweredIndices}
               />
             ))
           }

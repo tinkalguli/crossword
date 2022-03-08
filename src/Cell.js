@@ -9,8 +9,9 @@ const Cell = ({
   selectedWord,
   selectedIndex,
   setSelectedIndex,
+  selectedWordNonAnsweredIndices,
 }) => {
-  const currentPositionIndex = (index) => selectedWord.positions.indexOf(index);
+  const findIndexOf = (index, indices = selectedWord.positions) => indices.indexOf(index);
   const [value, setValue] = useState("");
   const inputRef = useRef(null);
   
@@ -19,9 +20,9 @@ const Cell = ({
   }, [selectedIndex]);
 
   useEffect(() => {
-    selectedIndex && setValue(selectedWord?.answer[currentPositionIndex(index)])
+    selectedIndex && setValue(selectedWord?.answer[findIndexOf(index)])
   }, [userAnswers]);
-  
+
   const indices = WORDS.reduce((acc, cv) => {
     let currentValPositions = cv.positions;
     acc = [...acc, ...currentValPositions];
@@ -46,15 +47,17 @@ const Cell = ({
   };
 
   const goToNextCell = (index) => {
-    const nextIndex = selectedWord.positions[currentPositionIndex(index) + 1];
+    if (selectedWord.isAnswered) return;
+
+    const nextIndex = selectedWordNonAnsweredIndices[findIndexOf(index, selectedWordNonAnsweredIndices) + 1];
     nextIndex !== undefined && setSelectedIndex(nextIndex);
   }
 
   const goToPrevCell = (e, index) => {
-    if (e.keyCode !== 8) return null;
+    if (e.keyCode !== 8 || selectedWord.isAnswered) return;
     if (e.target.value) return handleChange("", index);
 
-    const prevIndex = selectedWord.positions[currentPositionIndex(index) - 1];
+    const prevIndex = selectedWordNonAnsweredIndices[findIndexOf(index, selectedWordNonAnsweredIndices) - 1];
     prevIndex !== undefined && handleChange("", prevIndex).then(() => setSelectedIndex(prevIndex));
   }
 
@@ -102,8 +105,8 @@ const Cell = ({
         isSelectedByWord(index) ? "selected-word" : ""} ${
         index === selectedIndex ? "focus" : ""
       }`}
-      disabled={!isActive(index) || isCellAnswered(index)}
-      onChange={(e) => handleChange(e.target.value, index)}
+      disabled={!isActive(index)}
+      onChange={(e) => !isCellAnswered(index) && handleChange(e.target.value, index)}
       onClick={() => onWordChange(index)}
       onFocus={() => {
         setSelectedIndex(index)
