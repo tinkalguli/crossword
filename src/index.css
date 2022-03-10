@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --cell-row: 6;
-  --cell-column: 6;
+  --cell-row: 9;
+  --cell-column: 9;
   --cell-width: 70px;
   --cell-height: 70px;
   --cell-width-mobile: 40px;
