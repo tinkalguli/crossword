@@ -98,6 +98,27 @@ input:focus {
   text-align: center;
 } */
 
+@media screen and (max-width: 480px) {
+  .cell {
+    height: var(--cell-width-mobile);
+    width: var(--cell-height-mobile);
+    font-size: calc(var(--cell-width-mobile) / 1.75);
+    border-radius: calc(var(--cell-width-mobile) / 10);
+  }
+
+  .game {
+    width: calc(var(--cell-width-mobile) * var(--cell-column));
+    height: calc(var(--cell-height-mobile) * var(--cell-row));
+  }
+
+  .hint {
+    text-align: center;
+    font-size: calc(var(--cell-width-mobile) / 2);
+    height: calc(var(--cell-height-mobile) * 1.5);
+    width: calc(var(--cell-width-mobile) * var(--cell-column));
+  }
+}
+
 .btn {
   background-color: rgb(97, 12, 255);
   color: aliceblue;
@@ -143,24 +164,3 @@ input:focus {
   align-items: center;
   background-color: #000000b7;
 };
-
-@media screen and (max-width: 480px) {
-  .cell {
-    height: var(--cell-width-mobile);
-    width: var(--cell-height-mobile);
-    font-size: calc(var(--cell-width-mobile) / 1.75);
-    border-radius: calc(var(--cell-width-mobile) / 10);
-  }
-
-  .game {
-    width: calc(var(--cell-width-mobile) * var(--cell-column));
-    height: calc(var(--cell-height-mobile) * var(--cell-row));
-  }
-
-  .hint {
-    text-align: center;
-    font-size: calc(var(--cell-width-mobile) / 2);
-    height: calc(var(--cell-height-mobile) * 1.5);
-    width: calc(var(--cell-width-mobile) * var(--cell-column));
-  }
-}
