@@ -34,13 +34,13 @@ const Cell = ({
   );
 
   const handleChange = async (value, index) => {
+    const userAnswersClone = [...userAnswers];
     const inputValue = value.substr(value.length - 1);
     for (let wordInAnswer of matchingWords(index)) {
       let idx = wordInAnswer.positions.indexOf(index);
       wordInAnswer.answer[idx] = inputValue;
-      checkIfGuessed(wordInAnswer.word);
+      checkIfGuessed(wordInAnswer.word, userAnswersClone);
     }
-    const userAnswersClone = [...userAnswers];
     setValue(inputValue);
     value && goToNextCell(index);
     setUserAnswers(userAnswersClone);
@@ -72,7 +72,7 @@ const Cell = ({
     });
   }
 
-  const checkIfGuessed = (word) => {
+  const checkIfGuessed = (word, userAnswers) => {
     let userAnswer = userAnswers.find((ans) => ans.word === word);
     if (userAnswer.answer.join("").toLowerCase() === userAnswer.word) {
       userAnswer.isAnswered = true;
