@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { NUMBER_OF_CELL, WORDS } from './constant';
 import Cell from "./Cell";
+import sound from './kela.mp3'
 
 const App = () => {
+  const audio = new Audio(sound);
   const defaultUserAnswer = WORDS.map(word => ({ ...word, isAnswered: false, answer: []}))
   const [userAnswers, setUserAnswers] = useState(defaultUserAnswer);
   const [selectedWord, setSelectedWord] = useState(WORDS[0]);
@@ -18,6 +20,7 @@ const App = () => {
 
   useEffect(() => {
     if (selectedWord.isAnswered && nonAnsweredWords?.length === 0) {
+      audio.play();
       setIsComplete(true)
     } else if(selectedWord.isAnswered) {
       setSelectedWord(nonAnsweredWords[0])
