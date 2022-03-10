@@ -93,6 +93,57 @@ input:focus {
   background-color: var(--green-color);
 }
 
+/* .result {
+  font-size: calc(var(--cell-width) / 2);
+  text-align: center;
+} */
+
+.btn {
+  background-color: rgb(97, 12, 255);
+  color: aliceblue;
+  padding: 4px 7px;
+  border-radius: 2px;
+  border: 0;
+  outline: 0;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: rgb(62, 2, 173);
+  box-shadow: 0 0 3px #888888;
+}
+
+.modal {
+  background-color: rgb(240, 240, 240);
+  padding: 20px;
+  z-index: 10;
+  border-radius: 6px;
+  box-shadow: 0 0 5px #888888;
+  /* text-align: center; */
+}
+
+.modal > p {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.modal-div {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000b7;
+};
+
 @media screen and (max-width: 480px) {
   .cell {
     height: var(--cell-width-mobile);
