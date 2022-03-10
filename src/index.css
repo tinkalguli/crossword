@@ -3,10 +3,10 @@
 :root {
   --cell-row: 9;
   --cell-column: 9;
-  --cell-width: 70px;
-  --cell-height: 70px;
-  --cell-width-mobile: 40px;
-  --cell-height-mobile: 40px;
+  --cell-width: 65px;
+  --cell-height: 65px;
+  --cell-width-mobile: 35px;
+  --cell-height-mobile: 35px;
   --bg-color: rgb(233, 233, 233);
   --border-color: rgb(163, 163, 163);
   --green-color: rgb(155, 216, 165);
