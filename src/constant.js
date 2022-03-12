@@ -1,8 +1,8 @@
-// export const WORDS = [
-//   { word: "man", positions: [0, 1, 2], hint: "An adult male person" },
-//   { word: "novel", positions: [2, 8, 14, 20, 26], hint: "A book that tells a story about people and events that are not real" },
-//   { word: "lap", positions: [26, 27, 28], hint: "One journey around a running track" }
-// ];
+export const WORDS = [
+  { word: "কমল", positions: [0, 1, 2], hint: "ডাঙৰ-ডাঙৰ পাত, গুলপীয়া ৰঙৰ সুগন্ধি ফুল" },
+  { word: "অবতৰণ", positions: [2, 8, 14, 20, 26], hint: "উৰিব পৰা বস্তু বা প্ৰাণীয়ে তললৈ নামি আহি মাটি চুৱা কাৰ্য" },
+  { word: "তৰল", positions: [26, 27, 28], hint: "পানী হ'ল এবিধ ___ পদাৰ্থ" }
+];
 
 // export const WORDS = [
 //   { word: "blow", positions: [0, 1, 2, 3], hint: "What the wind dose" },
@@ -14,27 +14,27 @@
 //   { word: "kick", positions: [32, 33, 34, 35], hint: "To strike with the foot" },
 // ];
 
-export const WORDS = [
-  { word: "group", positions: [0, 1, 2, 3, 4], hint: "Number of people considered as a unit" },
-  { word: "out", positions: [6, 7, 8], hint: "Away from home" },
-  { word: "off", positions: [6, 15, 24], hint: "Silence switch" },
-  { word: "throw", positions: [8, 17, 26, 35, 44], hint: "Lose on purpose" },
-  { word: "port", positions: [4, 13, 22, 31], hint: "Harbour" },
-  { word: "often", positions: [2, 11, 20, 29, 38], hint: "Frequently" },
-  { word: "gap", positions: [0, 9, 18], hint: "Space between train and platform" },
-  { word: "pet", positions: [18, 19, 20], hint: "Family pooch, for example" },
-  { word: "sand", positions: [36, 37, 38, 39], hint: "Beach grains" },
-  { word: "sweet", positions: [36, 45, 54, 63, 72], hint: "Containing sugar" },
-  { word: "try", positions: [72, 73, 74], hint: "Give it a whril" },
-  { word: "toy", positions: [56, 65, 74], hint: "Child's amusement device" },
-  { word: "enter", positions: [54, 55, 56, 57, 58], hint: "Knock before you ___" },
-  { word: "aria", positions: [49, 58, 67, 76], hint: "Operatic song for a solo voice" },
-  { word: "alone", positions: [76, 77, 78, 79, 80], hint: "Without company" },
-  { word: "eye", positions: [62, 71, 80], hint: "Organ of sight" },
-  { word: "lie", positions: [60, 61, 62], hint: "Tell it like it isn't" },
-  { word: "hello", positions: [42, 51, 60, 69, 78], hint: "Opposite of goodbye" },
-  { word: "thaw", positions: [41, 42, 43, 44], hint: "Warm weather following a freeze, when snow and ice melt" },
-  { word: "refer", positions: [22, 23, 24, 25, 26], hint: "Make refence to" },
-];
+// export const WORDS = [
+//   { word: "group", positions: [0, 1, 2, 3, 4], hint: "Number of people considered as a unit" },
+//   { word: "throw", positions: [8, 17, 26, 35, 44], hint: "Lose on purpose" },
+//   { word: "often", positions: [2, 11, 20, 29, 38], hint: "Frequently" },
+//   { word: "sweet", positions: [36, 45, 54, 63, 72], hint: "Containing sugar" },
+//   { word: "enter", positions: [54, 55, 56, 57, 58], hint: "Knock before you ___" },
+//   { word: "refer", positions: [22, 23, 24, 25, 26], hint: "Make refence to" },
+//   { word: "কমল", positions: [6, 7, 8], hint: "ডাঙৰ-ডাঙৰ পাত, গুলপীয়া ৰঙৰ সুগন্ধি ফুল" },
+//   { word: "খৰম", positions: [6, 15, 24], hint: "একেটুকুৰা কাঠৰ পৰা কাটি উলিওৱা পাদুকা" },
+//   { word: "আবৰণ", positions: [4, 13, 22, 31], hint: "ঢাকি দিয়া" },
+//   { word: "বতৰ", positions: [0, 9, 18], hint: "উষ্ণতা, আৰ্দ্ৰতা, বায়ুৰ গতি আৰু বেৰোমিটাৰৰ চাপ আদি" },
+//   { word: "বছৰ", positions: [18, 19, 20], hint: "পৃথিৱীয়ে সূৰ্য্যৰ চাৰিফালে এবাৰ প্ৰদক্ষিণ কৰিবলৈ লগা সময়" },
+//   { word: "আহৰণ", positions: [36, 37, 38, 39], hint: "হস্তগত কৰা" },
+//   { word: "তৰল", positions: [72, 73, 74], hint: "পানী হ'ল এবিধ ___ পদাৰ্থ" },
+//   { word: "অসম", positions: [56, 65, 74], hint: "ভাৰতৰ উত্তৰ-পূবৰ এখন প্ৰদেশ" },
+//   { word: "সমতল", positions: [49, 58, 67, 76], hint: "ওখ-চাপৰ বা খলা-বমা নথকা এখন পৃষ্ঠ বা ঠাই" },
+//   { word: "অবতৰণ", positions: [76, 77, 78, 79, 80], hint: "উৰিব পৰা বস্তু বা প্ৰাণীয়ে তললৈ নামি আহি মাটি চুৱা কাৰ্য" },
+//   { word: "গৰম", positions: [62, 71, 80], hint: "উচ্চ উষ্ণতা সম্পন্ন" },
+//   { word: "ৰবৰ", positions: [60, 61, 62], hint: "টানি দীঘল কৰিব পৰা এবিধ পদাৰ্থ" },
+//   { word: "উপকৰণ", positions: [42, 51, 60, 69, 78], hint: "বিশেষ কামৰ কাৰণে‌ লগা সামগ্ৰী" },
+//   { word: "উপবন", positions: [41, 42, 43, 44], hint: "অৱসৰ বিনোদন অথবা প্ৰদৰ্শনৰ বাবে ব্যৱহাৰ কৰা ঠাই" },
+// ];
 
-export const NUMBER_OF_CELL = 81;
+export const NUMBER_OF_CELL = 36;
