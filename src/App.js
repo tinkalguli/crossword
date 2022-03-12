@@ -7,8 +7,8 @@ const App = () => {
   const audio = new Audio(sound);
   const defaultUserAnswer = WORDS.map(word => ({ ...word, isAnswered: false, answer: []}))
   const [userAnswers, setUserAnswers] = useState(defaultUserAnswer);
-  const [selectedWord, setSelectedWord] = useState(WORDS[0]);
-  const [selectedIndex, setSelectedIndex] = useState(WORDS[0]?.positions[0]);
+  const [selectedWord, setSelectedWord] = useState(defaultUserAnswer[0]);
+  const [selectedIndex, setSelectedIndex] = useState(defaultUserAnswer[0]?.positions[0]);
   const [isComplete, setIsComplete] = useState(false);
 
   const nonAnsweredWords = userAnswers.filter(v => !v.isAnswered);
