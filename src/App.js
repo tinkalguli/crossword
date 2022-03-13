@@ -22,14 +22,9 @@ const App = () => {
   
   const selectedWordNonAnsweredIndices = selectedWord?.positions.filter(v => !answeredIndices.includes(v));
 
-  // const onKeyPressed = (value) => {
-  //   console.log(value)
-  //   setSelectedIndexValue(value);
-  // }
-
   const handleChange = async (value, index = selectedIndex) => {
     const userAnswersClone = [...userAnswers];
-    // const inputValue = value.substr(value.length - 1);
+
     for (let wordInAnswer of matchingWords(index)) {
       let idx = wordInAnswer.positions.indexOf(index);
       wordInAnswer.answer[idx] = value;
@@ -93,19 +88,16 @@ const App = () => {
                 <Cell
                   key={i}
                   index={i}
-                  matchingWords={matchingWords}
-                  handleChange={handleChange}
-                  findIndexOf={findIndexOf}
-                  selectedIndexValue={selectedIndexValue}
                   userAnswers={userAnswers}
+                  findIndexOf={findIndexOf}
                   selectedWord={selectedWord}
                   selectedIndex={selectedIndex}
-                  setUserAnswers={setUserAnswers}
-                  setIsKeyBoardOpen={setIsKeyBoardOpen}
+                  matchingWords={matchingWords}
                   setSelectedWord={setSelectedWord}
                   setSelectedIndex={setSelectedIndex}
+                  setIsKeyBoardOpen={setIsKeyBoardOpen}
+                  selectedIndexValue={selectedIndexValue}
                   setSelectedIndexValue={setSelectedIndexValue}
-                  selectedWordNonAnsweredIndices={selectedWordNonAnsweredIndices}
                 />
               ))
             }

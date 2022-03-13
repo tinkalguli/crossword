@@ -5,7 +5,6 @@ const Cell = ({
   index,
   userAnswers,
   findIndexOf,
-  handleChange,
   selectedWord,
   matchingWords,
   selectedIndex,
@@ -14,7 +13,6 @@ const Cell = ({
   selectedIndexValue,
   setSelectedIndexValue,
   setIsKeyBoardOpen,
-  selectedWordNonAnsweredIndices,
 }) => {
   const [value, setValue] = useState("");
   const inputRef = useRef(null);
@@ -36,19 +34,6 @@ const Cell = ({
     acc = [...acc, ...currentValPositions];
     return acc;
   }, []);
-
-  // const handleChange = async (value, index) => {
-  //   const userAnswersClone = [...userAnswers];
-  //   const inputValue = value.substr(value.length - 1);
-  //   for (let wordInAnswer of matchingWords(index)) {
-  //     let idx = wordInAnswer.positions.indexOf(index);
-  //     wordInAnswer.answer[idx] = inputValue;
-  //     checkIfGuessed(wordInAnswer.word, userAnswersClone);
-  //   }
-  //   setValue(inputValue);
-  //   value && goToNextCell(index);
-  //   setUserAnswers(userAnswersClone);
-  // };
 
   const onWordChange = (index, canAlter=true) => {
     const words = matchingWords(index);
@@ -89,7 +74,6 @@ const Cell = ({
         index === selectedIndex ? "focus" : ""
       }`}
       disabled={!isActive(index)}
-      // onChange={(e) => !isCellAnswered(index) && handleChange(e.target.value, index)}
       onClick={(e) => {
         setIsKeyBoardOpen(true);
         setSelectedIndexValue(e.target.value)
@@ -100,7 +84,6 @@ const Cell = ({
         setSelectedIndexValue(e.target.value)
         onWordChange(index, false)
       }}
-      // onKeyDown={(e) => goToPrevCell(e, index)}
     />
   );
 };
