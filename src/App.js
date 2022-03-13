@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NUMBER_OF_CELL, WORDS } from './constant';
 import Cell from "./Cell";
 import KeyBoard from "./KeyBoard";
-import sound from './kela.mp3'
+import sound from './common/audios/kela.mp3'
 
 const App = () => {
   const audio = new Audio(sound);
@@ -79,7 +79,7 @@ const App = () => {
   }, [selectedWord]);
 
   return (
-    <div className="container">
+    <div className={`container ${isKeyBoardOpen ? "min-height-120" : "min-height-100"}`}>
       <div className="flex flex-center">
         <div className="relative">
           <div className="flex game">
