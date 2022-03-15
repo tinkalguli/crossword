@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { NUMBER_OF_CELL, WORDS } from './constant';
 import Cell from "./Cell";
 import KeyBoard from "./KeyBoard";
-import sound from './common/audios/kela.mp3'
+import sound from './common/audios/kela.mp3';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 const App = () => {
   const audio = new Audio(sound);
@@ -80,39 +81,57 @@ const App = () => {
 
   return (
     <div className={`container ${isKeyBoardOpen ? "min-height-120" : "min-height-100"}`}>
-      <div className="flex flex-center">
-        <div className="relative">
-          <div className="flex game">
-            {
-              Array(NUMBER_OF_CELL).fill("").map((_, i) => (
-                <Cell
-                  key={i}
-                  index={i}
-                  userAnswers={userAnswers}
-                  findIndexOf={findIndexOf}
-                  selectedWord={selectedWord}
-                  selectedIndex={selectedIndex}
-                  matchingWords={matchingWords}
-                  setSelectedWord={setSelectedWord}
-                  setSelectedIndex={setSelectedIndex}
-                  setIsKeyBoardOpen={setIsKeyBoardOpen}
-                  selectedIndexValue={selectedIndexValue}
-                  setSelectedIndexValue={setSelectedIndexValue}
-                />
-              ))
-            }
-          </div>
-          <p className="hint">{selectedWord?.hint}</p>
-        </div>
-        
-        {isComplete && <div className="flex modal-div">
-          <div className="modal">
-            <p>You have won the game 🥳</p>
-            <button className="btn" onClick={() => window.location.reload()}>Reset</button>
-          </div>
-        </div>}
-      </div>
-      {isKeyBoardOpen && <KeyBoard isKeyBoardOpen={isKeyBoardOpen} setIsKeyBoardOpen={setIsKeyBoardOpen} onKeyPressed={handleChange} onBackSpace={goToPrevCell} />} 
+      <TransformWrapper
+        initialScale={1}
+        minScale={0.5}
+        maxScale={2}
+        doubleClick={{ disabled: true }}
+      >
+        {({ zoomIn, zoomOut }) => (
+          <>
+            <TransformComponent>
+              <div className="flex justify-center full-w-h">
+                <div className="relative">
+                  <div className="flex game">
+                    {
+                      Array(NUMBER_OF_CELL).fill("").map((_, i) => (
+                        <Cell
+                          key={i}
+                          index={i}
+                          userAnswers={userAnswers}
+                          findIndexOf={findIndexOf}
+                          selectedWord={selectedWord}
+                          selectedIndex={selectedIndex}
+                          matchingWords={matchingWords}
+                          setSelectedWord={setSelectedWord}
+                          setSelectedIndex={setSelectedIndex}
+                          setIsKeyBoardOpen={setIsKeyBoardOpen}
+                          selectedIndexValue={selectedIndexValue}
+                          setSelectedIndexValue={setSelectedIndexValue}
+                        />
+                      ))
+                    }
+                  </div>
+                  <p className="hint">{selectedWord?.hint}</p>
+                </div>
+                
+                {isComplete && <div className="flex modal-div">
+                  <div className="modal">
+                    <p>You have won the game 🥳</p>
+                    <button className="btn" onClick={() => window.location.reload()}>Reset</button>
+                  </div>
+                </div>}
+              </div>
+            </TransformComponent>
+            <div className="fixed-wrapper">
+              <div className="flex zoom-btns">
+                <i className="ri-zoom-out-line" onClick={() => zoomOut()}></i>
+                <i className="ri-zoom-in-line" onClick={() => zoomIn()}></i>
+              </div>
+              {isKeyBoardOpen && <KeyBoard isKeyBoardOpen={isKeyBoardOpen} setIsKeyBoardOpen={setIsKeyBoardOpen} onKeyPressed={handleChange} onBackSpace={goToPrevCell} />} 
+            </div>
+          </>)}
+      </TransformWrapper>
     </div>
   );
 }
