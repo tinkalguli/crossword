@@ -60,6 +60,22 @@ input {
   justify-content: center;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
+.full-w-h {
+  width: 100vw;
+  height: 100vh;
+}
+
+.zoom-btns {
+  justify-content: space-between;
+  font-size: 1.5rem;
+  color: #999;
+  padding-bottom: 0.5rem;
+}
+
 .game {
   display: flex;
   flex-wrap: wrap;
@@ -111,6 +127,9 @@ input {
   background-color: #c8c8c8;
   border-radius: 4px 4px 0 0 ;
   padding: 0.5rem 1rem 1.5rem 1rem;
+}
+
+.fixed-wrapper {
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -245,3 +264,4 @@ input {
   align-items: center;
   background-color: #000000b7;
 };
+

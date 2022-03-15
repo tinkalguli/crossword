@@ -63,6 +63,8 @@ const Cell = ({
 
   const isSelectedByWord = (i) => selectedWord?.positions?.includes(i);
 
+
+
   return (
     <input
       value={value}
@@ -75,6 +77,7 @@ const Cell = ({
       }`}
       disabled={!isActive(index)}
       onClick={(e) => {
+        setSelectedIndex(index)
         setIsKeyBoardOpen(true);
         setSelectedIndexValue(e.target.value)
         onWordChange(index)
