@@ -112,7 +112,7 @@ const App = () => {
                       ))
                     }
                   </div>
-                  <p className="hint">{selectedWord?.hint}</p>
+                  {/* <p className="hint">{}</p> */}
                 </div>
                 
                 {isComplete && <div className="flex modal-div">
@@ -128,7 +128,7 @@ const App = () => {
                 <i className="ri-zoom-out-line" onClick={() => zoomOut()}></i>
                 <i className="ri-zoom-in-line" onClick={() => zoomIn()}></i>
               </div>
-              {isKeyBoardOpen && <KeyBoard isKeyBoardOpen={isKeyBoardOpen} setIsKeyBoardOpen={setIsKeyBoardOpen} onKeyPressed={handleChange} onBackSpace={goToPrevCell} />} 
+              {isKeyBoardOpen && <KeyBoard hint={selectedWord?.hint} isKeyBoardOpen={isKeyBoardOpen} setIsKeyBoardOpen={setIsKeyBoardOpen} onKeyPressed={handleChange} onBackSpace={goToPrevCell} />} 
             </div>
           </>)}
       </TransformWrapper>

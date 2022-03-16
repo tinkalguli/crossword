@@ -40,7 +40,7 @@ input {
 
 /* Modular Classes */
 .container {
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .min-height-100 {
@@ -73,13 +73,13 @@ input {
   justify-content: space-between;
   font-size: 1.5rem;
   color: #999;
-  padding-bottom: 0.5rem;
+  padding: 0 1rem 1rem 1rem;
 }
 
 .game {
   display: flex;
   flex-wrap: wrap;
-  margin: 1.5rem;
+  padding-top: 4rem;
   width: calc(var(--cell-width) * var(--cell-column));
   height: calc(var(--cell-height) * var(--cell-row));
 }
@@ -88,8 +88,9 @@ input {
   font-size: calc(var(--cell-width) / 3);
   text-align: center;
   line-height: 1.5;
-  height: calc(var(--cell-height) * 1.5);
-  width: calc(var(--cell-width) * var(--cell-column));
+  padding: 0.4rem 0.3rem;
+  border-bottom: 1px solid #aaa;
+  background-color: rgb(209, 209, 209);
 }
 
 .key {
@@ -117,7 +118,6 @@ input {
   vertical-align: middle;
 }
 
-.key-board,
 .board-row {
   width: max-content;
   margin: 0 auto;
@@ -127,6 +127,7 @@ input {
   background-color: #c8c8c8;
   border-radius: 4px 4px 0 0 ;
   padding: 0.5rem 1rem 1.5rem 1rem;
+  width: 100vw;
 }
 
 .fixed-wrapper {
@@ -134,11 +135,6 @@ input {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.board-settings {
-  padding-bottom: 0.5rem;
-  justify-content: flex-end;
 }
 
 .board-close-btn {
@@ -211,12 +207,6 @@ input {
   .hint {
     text-align: center;
     font-size: calc(var(--cell-width-mobile) / 2);
-    height: calc(var(--cell-height-mobile) * 1.5);
-    width: calc(var(--cell-width-mobile) * var(--cell-column));
-  }
-
-  .key-board {
-    width: 100%;
   }
 }
 
