@@ -13,6 +13,11 @@
   --primary-color: rgb(144, 96, 255);
   --secondary-color: rgb(209, 189, 255);
   --tertiary-color: rgb(219, 219, 219);
+
+  /* --paper-color: var(--pink);
+  --paper-dark: var(--pink-dark);
+  --shadow-size: 1px;
+  --transparent: rgba(236, 178, 186, 0); */
 }
 
 /* My reset */
@@ -39,9 +44,9 @@ input {
 }
 
 /* Modular Classes */
-.container {
-  /* padding: 1rem; */
-}
+/* .container {
+  padding: 1rem;
+} */
 
 .min-height-100 {
   min-height: 100vh;
@@ -64,10 +69,31 @@ input {
   justify-content: center;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.flex-column {
+  flex-direction: column;
+  align-items: center;
+}
+
 .full-w-h {
   width: 100vw;
   height: 100vh;
 }
+
+.flex-align-center {
+  align-items: center;
+}
+
+/* .text-center {
+  text-align: center;
+} */
 
 .zoom-btns {
   justify-content: space-between;
@@ -191,6 +217,48 @@ input {
   background-color: var(--green-color);
 }
 
+.level-card-wrapper {
+  cursor: pointer;
+  width: 100vw;
+}
+
+.grid-icon {
+  font-size: 2em;
+}
+
+.title {
+  text-align: center;
+  padding: 2rem 0.5rem;
+  font-size: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.level-name {
+  padding-left: 1rem;
+  font-size: 1.5rem;
+}
+
+.back-btn {
+  cursor: pointer;
+}
+
+/* .character-bg {
+  width: 100%;
+  padding: 2rem;
+  opacity: 0.4;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.character-bg span {
+  display: block;
+} */
+
 @media screen and (max-width: 480px) {
   .cell {
     height: var(--cell-width-mobile);
@@ -254,4 +322,3 @@ input {
   align-items: center;
   background-color: #000000b7;
 };
-
