@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
-import { NUMBER_OF_CELL, WORDS } from './constant';
-import Cell from "./Cell";
-import KeyBoard from "./KeyBoard";
-import sound from './common/audios/kela.mp3';
+import { useParams } from "react-router-dom";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
-const App = () => {
+import { LEVELS, NUMBER_OF_CELL, WORDS } from '../../utils/constant';
+import sound from '../../common/audios/kela.mp3';
+
+import Cell from "../Cell";
+import KeyBoard from "../KeyBoard";
+import Header from "./Header";
+import Loader from "../Common/Loader";
+
+const Level = () => {
+  const { id } = useParams();
   const audio = new Audio(sound);
   const defaultUserAnswer = WORDS.map(word => ({ ...word, isAnswered: false, answer: []}))
   const [userAnswers, setUserAnswers] = useState(defaultUserAnswer);
@@ -14,6 +20,16 @@ const App = () => {
   const [selectedIndexValue, setSelectedIndexValue] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [isKeyBoardOpen, setIsKeyBoardOpen] = useState(true);
+  const [level, setLevel] = useState(null);
+
+  const fetchLevel = () => {
+    const value = LEVELS.find(value => value.id === id);
+    setLevel(value);
+  }
+
+  useEffect(() => {
+    fetchLevel();
+  }, [])
   
 
   const nonAnsweredWords = userAnswers.filter(v => !v.isAnswered);
@@ -79,8 +95,13 @@ const App = () => {
     } 
   }, [selectedWord]);
 
+  if (!level) {
+    return <Loader />
+  }
+
   return (
     <div className={`container ${isKeyBoardOpen ? "min-height-120" : "min-height-100"}`}>
+      <Header level={level} />
       <TransformWrapper
         initialScale={1}
         minScale={0.5}
@@ -112,7 +133,6 @@ const App = () => {
                       ))
                     }
                   </div>
-                  {/* <p className="hint">{}</p> */}
                 </div>
                 
                 {isComplete && <div className="flex modal-div">
@@ -136,4 +156,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default Level;

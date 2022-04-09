@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { WORDS } from "./constant"
+import { WORDS } from "../utils/constant"
 
 const Cell = ({
   index,

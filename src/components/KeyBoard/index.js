@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InsideKeyBoard from "./InsideKeyBoard";
-import { INTERNAL_KEYS, KEYS } from "./constant"
+import { INTERNAL_KEYS, KEYS } from "./constants";
 
 const KeyBoard = ({ hint, onKeyPressed, onBackSpace, setIsKeyBoardOpen}) => {
   const [clickedKey, setClickedKey] = useState("");
