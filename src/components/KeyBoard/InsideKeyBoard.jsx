@@ -10,7 +10,7 @@ const InsideKeyBoard = ({ keys, onKeyPressed, setIsOpen }) => {
         <div>
           {
             keys.map((key) => (
-              <span onClick={() => onClick(key)} className="key">{key}</span>
+              <span key={key} onClick={() => onClick(key)} className="key">{key}</span>
             ))
           }
         </div>

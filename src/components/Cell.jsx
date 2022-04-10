@@ -3,7 +3,7 @@ import { WORDS } from "../utils/constant"
 
 const Cell = ({
   index,
-  userAnswers,
+  answers,
   findIndexOf,
   selectedWord,
   matchingWords,
@@ -14,20 +14,30 @@ const Cell = ({
   setSelectedIndexValue,
   setIsKeyBoardOpen,
 }) => {
-  const [value, setValue] = useState("");
+  const findValue = () => {
+    const word = answers.words.filter(value => value.positions.includes(index))[0];
+    if (!word) return "";
+ 
+    return word.answer[findIndexOf(index, word.positions)];
+  }
+  const [value, setValue] = useState(findValue);
   const inputRef = useRef(null);
-  
+
+  useEffect(() => {
+    setValue(findValue());
+  }, [answers]);
+
   useEffect(() => {
     selectedIndex === index && inputRef.current.focus();
   }, [selectedIndex]);
 
   useEffect(() => {
     selectedIndex && setValue(selectedWord?.answer[findIndexOf(index)])
-  }, [userAnswers]);
+  }, [answers]);
 
-  useEffect(() => {
-    selectedIndex === index && setValue(selectedIndexValue);
-  }, [selectedIndexValue])
+  // useEffect(() => {
+  //   selectedIndex === index && setValue(selectedIndexValue);
+  // }, [selectedIndexValue]);
 
   const indices = WORDS.reduce((acc, cv) => {
     let currentValPositions = cv.positions;
@@ -40,6 +50,7 @@ const Cell = ({
     if(words.length <= 1) return !canAlter && setSelectedWord(words[0]);
 
     setSelectedWord(selectedWord => {
+      console.log("selectedWord", selectedWord);
       const similarWord = words.find(v => v.word === selectedWord.word);
       const unSelctedWord = words.find(v => v.word !== similarWord?.word);
       return (similarWord && canAlter) ? unSelctedWord : (similarWord || words[0]);
@@ -47,7 +58,7 @@ const Cell = ({
   }
 
   const isCellAnswered = (index) => {
-    let correctAnswers = userAnswers.filter((ans) => ans.isAnswered);
+    let correctAnswers = answers.words.filter((ans) => ans.isAnswered);
     for (let i = 0; i < correctAnswers.length; i++) {
       if (
         WORDS

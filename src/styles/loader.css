@@ -1,9 +1,9 @@
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid rgb(75, 75, 255);
-  border-right: 16px solid rgb(169, 255, 169);
-  border-bottom: 16px solid rgb(234, 119, 119);
+  border-top: 16px solid rgb(119, 119, 255);
+  border-right: 16px solid rgb(179, 255, 179);
+  border-bottom: 16px solid rgb(254, 162, 162);
   width: 120px;
   height: 120px;
   -webkit-animation: spin 2s linear infinite;

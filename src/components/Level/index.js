@@ -2,59 +2,79 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
-import { LEVELS, NUMBER_OF_CELL, WORDS } from '../../utils/constant';
+import { NUMBER_OF_CELL } from '../../utils/constant';
 import sound from '../../common/audios/kela.mp3';
 
 import Cell from "../Cell";
 import KeyBoard from "../KeyBoard";
 import Header from "./Header";
 import Loader from "../Common/Loader";
+import ResultModal from "./ResultModal";
 
-const Level = () => {
+const Level = ({ userAnswers, setUserAnswers }) => {
   const { id } = useParams();
   const audio = new Audio(sound);
-  const defaultUserAnswer = WORDS.map(word => ({ ...word, isAnswered: false, answer: []}))
-  const [userAnswers, setUserAnswers] = useState(defaultUserAnswer);
-  const [selectedWord, setSelectedWord] = useState(defaultUserAnswer[0]);
-  const [selectedIndex, setSelectedIndex] = useState(defaultUserAnswer[0]?.positions[0]);
+  const [answers, setAnswers] = useState(null);
+  const [selectedWord, setSelectedWord] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [selectedIndexValue, setSelectedIndexValue] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [isKeyBoardOpen, setIsKeyBoardOpen] = useState(true);
-  const [level, setLevel] = useState(null);
 
-  const fetchLevel = () => {
-    const value = LEVELS.find(value => value.id === id);
-    setLevel(value);
-  }
+  const setInitialData = () => {
+    const value = userAnswers.find(value => value.id === id);
+    const words = value.words;
+    const final = words[0];
+    console.log(userAnswers, value, words);
+
+    setAnswers(value);
+    setSelectedWord(final);
+    setSelectedIndex(words[0]?.positions[0]);
+  };
 
   useEffect(() => {
-    fetchLevel();
-  }, [])
+    userAnswers && setInitialData();
+  }, [id]);
   
+  useEffect(() => {
+    if (!answers) return;
 
-  const nonAnsweredWords = userAnswers.filter(v => !v.isAnswered);
-  const answeredIndices = userAnswers.filter(v => v.isAnswered).reduce(
+    let userAnswersClone = [...userAnswers];
+    let selectedAnswers = userAnswersClone.find(value => value.id === answers.id);
+    selectedAnswers.words = answers.words;
+    selectedAnswers.isAnswered = answers.isAnswered;
+
+    setUserAnswers(userAnswersClone);
+  }, [answers]);
+
+  const nonAnsweredWords = answers?.words?.filter(v => !v.isAnswered);
+  const answeredIndices = answers?.words?.filter(v => v.isAnswered).reduce(
     (acc, cv) => [...acc, ...cv.positions], []
   );
   
   const selectedWordNonAnsweredIndices = selectedWord?.positions.filter(v => !answeredIndices.includes(v));
 
   const handleChange = async (value, index = selectedIndex) => {
-    const userAnswersClone = [...userAnswers];
+    const answersClone = { ...answers };
 
     for (let wordInAnswer of matchingWords(index)) {
       let idx = wordInAnswer.positions.indexOf(index);
       wordInAnswer.answer[idx] = value;
-      checkIfGuessed(wordInAnswer.word, userAnswersClone);
+      checkIfGuessed(wordInAnswer.word, answersClone);
     }
+    const isLevelAnswered = answersClone.words.every(value => value.isAnswered);
+
+    setIsComplete(isLevelAnswered);
     setSelectedIndexValue(value);
     value && goToNextCell(index);
-    setUserAnswers(userAnswersClone);
+    setAnswers({...answersClone, isAnswered: isLevelAnswered});
   };
 
-  const matchingWords = (index) => userAnswers.filter((ans) =>
-    ans.positions.includes(index)
-  );
+  const matchingWords = (index) => {
+    return answers.words.filter((ans) =>
+      ans.positions.includes(index)
+    )
+  };
 
   const goToNextCell = (index) => {
     if (selectedWord.isAnswered) return;
@@ -63,8 +83,8 @@ const Level = () => {
     nextIndex !== undefined && setSelectedIndex(nextIndex);
   }
 
-  const checkIfGuessed = (word, userAnswers) => {
-    let userAnswer = userAnswers.find((ans) => ans.word === word);
+  const checkIfGuessed = (word, answers) => {
+    let userAnswer = answers.words.find((ans) => ans.word === word);
     if (userAnswer.answer.join("").toLowerCase() === userAnswer.word) {
       userAnswer.isAnswered = true;
     }
@@ -81,27 +101,32 @@ const Level = () => {
   }
 
   useEffect(() => {
-    if (selectedWord.isAnswered && nonAnsweredWords?.length === 0) {
+    if (!answers || !selectedWord) return;
+    console.log(answers)
+    console.log(answers.isAnswered)
+
+    if (isComplete) {
       audio.play();
-      setIsComplete(true)
-    } else if(selectedWord.isAnswered) {
-      setSelectedWord(nonAnsweredWords[0])
+    } else if(selectedWord.isAnswered && !answers.isAnswered) {
+      setSelectedWord(nonAnsweredWords[0]);
     }
-  }, [userAnswers]);
+  }, [answers]);
 
   useEffect(() => {
+    if (!selectedWord) return;
+
     if (answeredIndices.includes(selectedIndex) && !selectedWord.isAnswered) {
       setSelectedIndex(selectedWordNonAnsweredIndices[0]);
     } 
   }, [selectedWord]);
 
-  if (!level) {
+  if (!answers) {
     return <Loader />
   }
 
   return (
     <div className={`container ${isKeyBoardOpen ? "min-height-120" : "min-height-100"}`}>
-      <Header level={level} />
+      <Header answers={answers} setAnswers={setAnswers} selectedIndex={selectedIndex} selectedWord={selectedWord} />
       <TransformWrapper
         initialScale={1}
         minScale={0.5}
@@ -119,7 +144,7 @@ const Level = () => {
                         <Cell
                           key={i}
                           index={i}
-                          userAnswers={userAnswers}
+                          answers={answers}
                           findIndexOf={findIndexOf}
                           selectedWord={selectedWord}
                           selectedIndex={selectedIndex}
@@ -134,13 +159,6 @@ const Level = () => {
                     }
                   </div>
                 </div>
-                
-                {isComplete && <div className="flex modal-div">
-                  <div className="modal">
-                    <p>You have won the game 🥳</p>
-                    <button className="btn" onClick={() => window.location.reload()}>Reset</button>
-                  </div>
-                </div>}
               </div>
             </TransformComponent>
             <div className="fixed-wrapper">
@@ -150,6 +168,7 @@ const Level = () => {
               </div>
               {isKeyBoardOpen && <KeyBoard hint={selectedWord?.hint} isKeyBoardOpen={isKeyBoardOpen} setIsKeyBoardOpen={setIsKeyBoardOpen} onKeyPressed={handleChange} onBackSpace={goToPrevCell} />} 
             </div>
+            {isComplete && <ResultModal id={id} setIsOpen={setIsComplete} />}
           </>)}
       </TransformWrapper>
     </div>
